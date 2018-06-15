@@ -1,0 +1,40 @@
+* {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 12px;
+}
+body {
+    align-content: center;
+}
+#canvas {
+    display: flex;
+    background: gray;
+    min-width: 800px;
+    min-height: 600px;
+}
+.character-info {
+    width: 150px;
+    height: 150px;
+}
+#game-log {
+    display: flex;
+    width: 650px;
+    height: 225px;
+}
+#description {
+    width: 300px;
+}
+#menu {
+    width: 435px;
+}
+#player-screen {
+    width: 215px;
+}
+#enemy-screen {
+    width: 435px;
+}
+#game-screen {
+    display: flex;
+    width: 650px;
+    height: 375px;
+}
