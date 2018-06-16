@@ -10,5 +10,15 @@ class Character {
         this.vitality = 1;          // additional maximum hp
         this.intelligence = 1;      // black magic
         this.mind = 1;              // white magic
+        this.max_health_points = this.health_points + this.vitality;
+    }
+    attack(target) {
+        target.health_points-=this.attack;
+    }
+    magic(target) {
+        target.health_points-=this.attack;
+    }
+    run() {
+        console.log(this.name + " ran away.");
     }
 }

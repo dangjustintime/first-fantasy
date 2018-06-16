@@ -28,6 +28,10 @@ class BlackMage extends Character {
         this.intelligence+=4;
         this.mind+=2;
     }
+    // moves
+    magic(target) {
+        target.health_points-=this.intelligence;
+    }
 }
 class WhiteMage extends Character {
     constructor(name) {
@@ -37,5 +41,9 @@ class WhiteMage extends Character {
         this.vitality+=1;
         this.intelligence+=2;
         this.mind+=4;
+    }
+    // moves
+    magic(target) {
+        target.health_points-=this.mind;
     }
 }
