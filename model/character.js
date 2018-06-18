@@ -13,10 +13,10 @@ class Character {
         this.max_health_points = this.health_points + this.vitality;
     }
     attack(target) {
-        target.health_points-=this.attack;
+        target.health_points-=this.strength;
     }
     magic(target) {
-        target.health_points-=this.attack;
+        target.health_points-=this.intelligence;
     }
     run() {
         console.log(this.name + " ran away.");
