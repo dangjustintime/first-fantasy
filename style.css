@@ -57,8 +57,20 @@ body {
     transform: scaleX(-1);
     margin: 15% auto;
 }
-.enemy-img {
+.enemy-info {
     display: block;
-    transform: scaleX(-1);
+    width: 100px;
+    height: 100px;
     margin: 15% auto;
+
+}
+.enemy-health-bar {
+    background: red;
+    width: 100px;
+    height: 10px;
+    margin: 5%;
+}
+.enemy-img {
+    transform: scaleX(-1);
+    width: 90%;
 }

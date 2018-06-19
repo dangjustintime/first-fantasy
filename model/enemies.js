@@ -1,19 +1,12 @@
 // enemies
-// Blob
-class Blob extends Character {
-    constructor() {
-        super("Blob");
-        this.health_points = 3;
-        this.magic_points = 1;
-    }
-}
 // Goblin
 class Goblin extends Character {
     constructor() {
         super("Goblin");
-        this.health_points = 5;
+        this.health_points = 50;
         this.magic_points = 2;
-        this.strength = 2;
+        this.strength = 20;
+        this.src = "img/goblin.png";
     }
 }
 // Orge
