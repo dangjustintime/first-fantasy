@@ -35,11 +35,6 @@ class BlackMage extends Character {
         this.max_magic_points = this.magic_points + this.intelligence;
         this.url_standing="img/black-mage-standing.png";
     }
-    // moves
-    magic(target) {
-        target.health_points-=this.intelligence;
-        this.magic_points--;
-    }
 }
 class WhiteMage extends Character {
     constructor(name) {
@@ -55,10 +50,14 @@ class WhiteMage extends Character {
     }
     // moves
     magic(target) {
-        target.health_points+=this.mind;
-        if (target.health_points > target.max_health_points) {
-            target.health_points = target.max_health_points;
+        if (this.magic_points == 0) {
+            console.log("Not Enough MP");
+        } else {
+            this.magic_points--;
+            target.health_points-=this.mind;
+            if (target.health_points < 0) {
+                target.health_points = 0;
+            }
         }
-        this.magic_points--;
     }
 }

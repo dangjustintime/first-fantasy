@@ -3,9 +3,9 @@
 class Goblin extends Character {
     constructor() {
         super("Goblin");
-        this.health_points = 50;
+        this.health_points = 5;
         this.magic_points = 2;
-        this.strength = 20;
+        this.strength = 2;
         this.src = "img/goblin.png";
     }
 }

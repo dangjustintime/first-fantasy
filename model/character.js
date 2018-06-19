@@ -15,10 +15,20 @@ class Character {
     }
     attack(target) {
         target.health_points-=this.strength;
+        if (target.health_points < 0) {
+            target.health_points = 0;
+        }
     }
     magic(target) {
-        target.health_points-=this.intelligence;
-        this.magic_points--;
+        if (this.magic_points == 0) {
+            console.log("Not Enough MP");
+        } else {
+            this.magic_points--;
+            target.health_points-=this.intelligence;
+            if (target.health_points < 0) {
+                target.health_points = 0;
+            }
+        }
     }
     run() {
         console.log(this.name + " ran away.");

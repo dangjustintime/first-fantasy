@@ -30,6 +30,12 @@ class Player {
 const player = new Player("Player");
 const enemy = new Player("Enemy");
 
+enemy.attack_one = () => {
+    let random1 = Math.floor(Math.random() * enemy.party.length);
+    let random2 = Math.floor(Math.random() * player.party.length);
+    enemy.party[random1].attack(player.party[random2]);
+}
+
 // function - adds character div to DOM
 const addCharacterToParty = (name, job) => {
     const newCharacter = new job(name);
@@ -62,8 +68,6 @@ const addEnemyToParty = (job) => {
     enemy.party.push(newEnemy);
     $enemyImg = $("<div>").addClass("enemy-info");
     $enemyImg.attr("id", "enemy" + (enemy.party.length - 1));
-    $enemyImg.append($("<div>").addClass("enemy-health-bar")
-        .attr("id", "enemy-health-bar" + (enemy.party.length - 1)));
     $enemyImg.append($("<img>").addClass("enemy-img")
         .attr("id", "enemy-img" + (enemy.party.length - 1))
         .attr("src", newEnemy.src));
@@ -75,19 +79,33 @@ const addEnemyToParty = (job) => {
 $(() => {
     addCharacterToParty("Bill", Warrior);
     addEnemyToParty(Goblin);
+    addEnemyToParty(Goblin);
+    addEnemyToParty(Goblin);
 
     $("#description").text(player.party[player.current_index].name + "\'s turn");
 
     // eventlisteners
+    // eventlisteners to select target
+    for (let i = 0; i < enemy.party.length; i++) {
+        $("#enemy-img" + i).on("click", () => {
+            let target = i;
+        });
+    }
     // eventlistener - attack button
     $("#attack-button").on("click", () => {
+        let target;
+        game.log("Select Target");
+        // character attacks target
         player.party[player.current_index].attack(enemy.party[0]);
         game.log(player.party[player.current_index].name + " attacked!");
         if (!enemy.checkState()) {
-            enemy.party[0].attack(player.party[player.current_index]);
+            // target attacks back
+            enemy.attack_one();
+            // update screen
             $("#character-hp" + player.current_index).text(
                 "HP " + player.party[player.current_index].health_points + "/" 
                 + player.party[player.current_index].max_health_points);
+            $("#enemy-health-bar" )
             game.log(enemy.party[0].name + " attacked!");
             if(player.checkState()) {
                 alert("You lost...");
@@ -105,7 +123,8 @@ $(() => {
         player.party[0].magic(enemy.party[0]);
         game.log(player.party[0].name + " used magic!");
         if (!enemy.checkState()) {
-            enemy.party[0].magic(player.party[0]);
+            // enemy attacks back
+            enemy.attack_one();
             $("#character-hp" + player.current_index).text(
                 "HP " + player.party[0].health_points + "/"
                 + player.party[player.current_index].max_health_points);
