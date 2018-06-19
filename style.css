@@ -70,6 +70,10 @@ body {
     height: 10px;
     margin: 5%;
 }
+#enemy-target {
+    border: 10px solid red;
+}
+
 .enemy-img {
     transform: scaleX(-1);
     width: 90%;

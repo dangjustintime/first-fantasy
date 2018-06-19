@@ -71,12 +71,13 @@ const addEnemyToParty = (job) => {
     $enemyImg.append($("<img>").addClass("enemy-img")
         .attr("id", "enemy-img" + (enemy.party.length - 1))
         .attr("src", newEnemy.src));
-
     $("#enemy-screen").append($enemyImg);
 }
 
+
 // document ready function
 $(() => {
+    let target;
     addCharacterToParty("Bill", Warrior);
     addEnemyToParty(Goblin);
     addEnemyToParty(Goblin);
@@ -85,12 +86,6 @@ $(() => {
     $("#description").text(player.party[player.current_index].name + "\'s turn");
 
     // eventlisteners
-    // eventlisteners to select target
-    for (let i = 0; i < enemy.party.length; i++) {
-        $("#enemy-img" + i).on("click", () => {
-            let target = i;
-        });
-    }
     // eventlistener - attack button
     $("#attack-button").on("click", () => {
         let target;
@@ -98,6 +93,10 @@ $(() => {
         // character attacks target
         player.party[player.current_index].attack(enemy.party[0]);
         game.log(player.party[player.current_index].name + " attacked!");
+        if (enemy.party[0].health_points == 0) {
+            $("#enemy0").css("background", "black");
+            $("#enemy0").css("transform", "scaleY(-1)");
+        }
         if (!enemy.checkState()) {
             // target attacks back
             enemy.attack_one();
