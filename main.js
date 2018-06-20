@@ -41,8 +41,15 @@ const enemy = new Player("Enemy");
 
 // method - random enemy attacks random character
 enemy.attack_one = () => {
-    let random1 = Math.floor(Math.random() * enemy.party.length);
-    let random2 = Math.floor(Math.random() * player.party.length);
+    let random1;
+    let random2;
+    do {
+        random1 = Math.floor(Math.random() * enemy.party.length);
+        random2 = Math.floor(Math.random() * player.party.length);
+    // generate indexes of characters that are still alive
+    } while (enemy.party[random1].health_points == 0
+        && player.party[random2].health_points == 0);
+    // random enemy attacks random target
     enemy.party[random1].attack(player.party[random2]);
 }
 
@@ -69,7 +76,7 @@ const addCharacterToParty = (name, job) => {
     $("#player-screen").append($("<img>")
         .addClass("character-img")
         .attr("id", "character-img" + (player.party.length - 1))
-        .attr("src", newCharacter.url_standing));
+        .attr("src", newCharacter.src_standing));
 }
 
 // function - adds enemy div to DOM
@@ -141,6 +148,17 @@ $(() => {
             // target attacks back
             enemy.attack_one();
             // update screen
+            if (player.party[player.current_index].health_points <= 
+                (player.party[player.current_index].max_health_points / 2)) {
+                $("#character-img" + player.current_index)
+                    .attr("src",
+                        player.party[player.current_index].src_damaged);
+            }
+            if (player.party[player.current_index].health_points == 0) {
+                $("#character-img" + player.current_index)
+                    .attr("src",
+                        player.party[player.current_index].src_dead);
+            }
             $("#character-hp" + player.current_index).text(
                 "HP " + player.party[player.current_index].health_points + "/" 
                 + player.party[player.current_index].max_health_points);

@@ -5,7 +5,7 @@ class Goblin extends Character {
         super("Goblin");
         this.job = "goblin";
         this.health_points = 6;
-        this.strength = 2;
+        this.strength = 7;
         this.src = "img/goblin.png";
     }
 }
@@ -15,7 +15,7 @@ class Wolf extends Character {
         super("Wolf");
         this.job = "wolf";
         this.health_points = 7;
-        this.strength = 3;
+        this.strength = 7;
         this.src = "img/wolf.png";
     }
 }
@@ -25,7 +25,7 @@ class Snake extends Character {
         super("Snake");
         this.job = "snake";
         this.health_points = 5;
-        this.strength = 3;
+        this.strength = 7;
         this.src = "img/snake.png";
     }
 }

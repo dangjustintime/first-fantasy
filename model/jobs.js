@@ -9,7 +9,9 @@ class Warrior extends Character {
         this.intelligence+=1;
         this.mind+=1;
         this.max_health_points = this.health_points + this.vitality;
-        this.url_standing="img/warrior-standing.png";
+        this.src_standing="img/warrior-standing.png";
+        this.src_damaged="img/warrior-damaged.png";
+        this.src_dead="img/warrior-dead.png";
     }
 }
 class Monk extends Character {
@@ -22,7 +24,9 @@ class Monk extends Character {
         this.intelligence+=1;
         this.mind+=1;
         this.max_health_points = this.health_points + this.vitality;
-        this.url_standing="img/monk-standing.png";
+        this.src_standing="img/monk-standing.png";
+        this.src_damaged="img/monk-damaged.png";
+        this.src_dead="img/monk-dead.png";
     }
 }
 class BlackMage extends Character {
@@ -36,7 +40,9 @@ class BlackMage extends Character {
         this.mind+=2;
         this.max_health_points = this.health_points + this.vitality;
         this.max_magic_points = this.magic_points + this.intelligence;
-        this.url_standing="img/black-mage-standing.png";
+        this.src_standing="img/black-mage-standing.png";
+        this.src_damaged="img/black-mage-damaged.png";
+        this.src_dead="img/black-mage-dead.png";
     }
 }
 class WhiteMage extends Character {
@@ -50,7 +56,9 @@ class WhiteMage extends Character {
         this.mind+=4;
         this.max_health_points = this.health_points + this.vitality;
         this.max_magic_points = this.magic_points + this.mind;
-        this.url_standing="img/white-mage-standing.png";
+        this.src_standing="img/white-mage-standing.png";
+        this.src_damaged="img/white-mage-damaged.png";
+        this.src_dead="img/white-mage-dead.png";
     }
     // moves
     magic(target) {
