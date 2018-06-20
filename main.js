@@ -89,9 +89,9 @@ $(() => {
     addCharacterToParty("Steve", BlackMage);
     addCharacterToParty("Jessica", WhiteMage);
     addEnemyToParty(Goblin);
-    addEnemyToParty(Goblin);
-    addEnemyToParty(Goblin);
-    addEnemyToParty(Goblin);
+    addEnemyToParty(Snake);
+    addEnemyToParty(Wolf);
+    addEnemyToParty(Wolf);
 
     // displays first character's turn
     $("#description").text(player.party[player.current_index].name + "\'s turn");
