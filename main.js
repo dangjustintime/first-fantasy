@@ -181,6 +181,13 @@ $(() => {
             // heal target
             player.party[player.current_index].magic(player.party[target]);
             // update UI
+            // if character has more than half HP, change to standing sprite
+            if (player.party[target].health_points >=
+                player.party[target].max_health_points) {
+                $("#character-img" + player.current_index)
+                    .attr("src",
+                        player.party[target].src_standing);
+            }
             $("#character-hp" + target).text(
                 "HP " + player.party[target].health_points + "/"
                 + player.party[target].max_health_points);
@@ -212,6 +219,7 @@ $(() => {
         }
         player.nextCharacter();
     });
+
     // eventlistener - run button
     $("#run-button").on("click", () => {
         game.log(player.name + " ran away!");

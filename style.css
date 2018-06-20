@@ -5,9 +5,11 @@
     font-family: sans-serif;
 }
 
+/*
 *:hover {
     border: 1px solid yellow;
 }
+*/
 
 body {
     align-content: center;
@@ -104,5 +106,5 @@ body {
 }
 
 .selected-character {
-    transform: scale(-1.5, 1.5);
+    transform: translateX(75px) scaleX(-1);
 }
