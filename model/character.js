@@ -2,6 +2,7 @@
 class Character {
     constructor(name) {
         this.name = name;
+        this.job = "none";
         // stats
         this.health_points = 10;
         this.magic_points = 10;

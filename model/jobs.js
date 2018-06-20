@@ -2,6 +2,7 @@
 class Warrior extends Character {
     constructor(name) {
         super(name);
+        this.job = "warrior";
         this.strength+=3;
         this.agility+=3;
         this.vitality+=2;
@@ -14,6 +15,7 @@ class Warrior extends Character {
 class Monk extends Character {
     constructor(name) {
         super(name);
+        this.job = "monk";
         this.strength+=3;
         this.agility+=2;
         this.vitality+=4;
@@ -26,6 +28,7 @@ class Monk extends Character {
 class BlackMage extends Character {
     constructor(name) {
         super(name);
+        this.job = "black mage";
         this.strength+=1;
         this.agility+=1;
         this.vitality+=1;
@@ -39,6 +42,7 @@ class BlackMage extends Character {
 class WhiteMage extends Character {
     constructor(name) {
         super(name);
+        this.job = "white mage";
         this.strength+=1;
         this.agility+=1;
         this.vitality+=1;
@@ -54,9 +58,9 @@ class WhiteMage extends Character {
             console.log("Not Enough MP");
         } else {
             this.magic_points--;
-            target.health_points-=this.mind;
-            if (target.health_points < 0) {
-                target.health_points = 0;
+            target.health_points+=this.mind;
+            if (target.health_points > target.max_health_points) {
+                target.health_points = target.max_health_points;
             }
         }
     }

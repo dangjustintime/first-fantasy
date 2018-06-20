@@ -153,30 +153,40 @@ $(() => {
 
     // eventlistener - magic button
     $("#magic-button").on("click", () => {
-        // selected character uses magic on target
-        player.party[player.current_index].magic(enemy.party[target]);
         game.log(player.party[player.current_index].name + " used magic!");
-        // check if target is dead
-        if (enemy.party[target].health_points == 0) {
-            $("#enemy" + target).addClass("dead");
-        }
-        if (!enemy.checkState()) {
-            // enemy attacks back
-            enemy.attack_one();
+        // if character is a white mage
+        if (player.party[player.current_index].job == "white mage") {
+            // heal target
+            player.party[player.current_index].magic(player.party[target]);
             // update UI
-            $("#character-hp" + player.current_index).text(
-                "HP " + player.party[player.current_index].health_points + "/"
-                + player.party[player.current_index].max_health_points);
-            game.log(enemy.party[target].name + " attacked!");
-            $("#character-mp" + player.current_index).text(
-                "MP " + player.party[player.current_index].magic_points + "/"
-                + player.party[player.current_index].max_magic_points);
-            // check if party is dead
-            if(player.checkState()) {
-                alert("You lost...");
-            }
+            $("#character-hp" + target).text(
+                "HP " + player.party[target].health_points + "/"
+                + player.party[target].max_health_points);
         } else {
-            alert("You won!");
+            // selected character uses magic on target
+            player.party[player.current_index].magic(enemy.party[target]);
+            // check if target is dead
+            if (enemy.party[target].health_points == 0) {
+                $("#enemy" + target).addClass("dead");
+            }
+            if (!enemy.checkState()) {
+                // enemy attacks back
+                enemy.attack_one();
+                // update UI
+                $("#character-hp" + player.current_index).text(
+                    "HP " + player.party[player.current_index].health_points + "/"
+                    + player.party[player.current_index].max_health_points);
+                game.log(enemy.party[target].name + " attacked!");
+                $("#character-mp" + player.current_index).text(
+                    "MP " + player.party[player.current_index].magic_points + "/"
+                    + player.party[player.current_index].max_magic_points);
+                // check if party is dead
+                if(player.checkState()) {
+                    alert("You lost...");
+                }
+            } else {
+                alert("You won!");
+            }
         }
         player.nextCharacter();
     });
