@@ -30,6 +30,7 @@ class Player {
 const player = new Player("Player");
 const enemy = new Player("Enemy");
 
+// method - random enemy attacks random character
 enemy.attack_one = () => {
     let random1 = Math.floor(Math.random() * enemy.party.length);
     let random2 = Math.floor(Math.random() * player.party.length);
@@ -74,28 +75,56 @@ const addEnemyToParty = (job) => {
     $("#enemy-screen").append($enemyImg);
 }
 
+/*
+// function - selects target
+const selectTarget = () => {
+    let target;
+    for (let i = 0; i < enemy.party.length; i++) {
+        $("#enemy-img" + i).on("click", () => {
+            target = i;
+            $("#enemy-img" + i).addClass("target");
+    game.log(target);
+        });
+    }
+    game.log("Select a target");
+    $("#enemy-img" + target).removeClass("target");
+    return target;
+}
+*/
 
 // document ready function
 $(() => {
     let target;
+    // add characters to game
     addCharacterToParty("Bill", Warrior);
     addEnemyToParty(Goblin);
     addEnemyToParty(Goblin);
-    addEnemyToParty(Goblin);
 
+    // displays first character's turn
     $("#description").text(player.party[player.current_index].name + "\'s turn");
 
     // eventlisteners
+
+    // eventlisteners - enemy images
+    for (let i = 0; i < enemy.party.length; i++) {
+        $("#enemy-img" + i).on("click", () => {
+            $(".enemy-img").removeClass("target");
+            $("#enemy-img" + i).addClass("target");
+            target = i;
+            game.log(i);
+        });
+    }
+
     // eventlistener - attack button
     $("#attack-button").on("click", () => {
-        let target;
-        game.log("Select Target");
+        // select target
+        let selectedTarget = target;
         // character attacks target
-        player.party[player.current_index].attack(enemy.party[0]);
+        player.party[player.current_index].attack(enemy.party[selectedTarget]);
         game.log(player.party[player.current_index].name + " attacked!");
-        if (enemy.party[0].health_points == 0) {
-            $("#enemy0").css("background", "black");
-            $("#enemy0").css("transform", "scaleY(-1)");
+        // if enemy is dead
+        if (enemy.party[selectedTarget].health_points == 0) {
+            $("#enemy"+ selectedTarget).addClass("dead");
         }
         if (!enemy.checkState()) {
             // target attacks back
@@ -105,18 +134,18 @@ $(() => {
                 "HP " + player.party[player.current_index].health_points + "/" 
                 + player.party[player.current_index].max_health_points);
             $("#enemy-health-bar" )
-            game.log(enemy.party[0].name + " attacked!");
+            game.log(enemy.party[selectedTarget].name + " attacked!");
             if(player.checkState()) {
                 alert("You lost...");
             }
             console.log(player.party[player.current_index]);
-            console.log(enemy.party[0]);
+            console.log(enemy.party[selectedTarget]);
         } else {
             alert("You won!");
         }
         player.nextCharacter();
-        console.log(player);
     });
+
     // eventlistener - magic button
     $("#magic-button").on("click", () => {
         player.party[0].magic(enemy.party[0]);

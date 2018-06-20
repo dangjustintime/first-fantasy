@@ -78,3 +78,13 @@ body {
     transform: scaleX(-1);
     width: 90%;
 }
+
+.dead {
+    background: black;
+    transform: scaleY(-1);
+    filter: invert(100%);
+}
+.target {
+    border: 10px solid red;
+}
+
