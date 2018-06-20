@@ -20,8 +20,12 @@ class Player {
     // method - navigates through party array
     nextCharacter() {
         this.current_index++;
-        if (this.current_index == this.party.length) {
+        if (this.current_index >= this.party.length) {
             this.current_index = 0;
+        }
+        // skip character if dead
+        if (this.party[this.current_index].health_points == 0) {
+            this.current_index++;
         }
         $(".character-img").removeClass("selected-character");
         $("#character-img" + this.current_index).addClass("selected-character");
