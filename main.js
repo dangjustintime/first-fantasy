@@ -1,9 +1,11 @@
+// object to log in strings into UI
 const game = {
     log(str) {
         $("#description").text(str);
     }
 }
 
+// class for both the player and the computer
 class Player {
     constructor(name) {
         this.name = name;
@@ -21,12 +23,15 @@ class Player {
         if (this.current_index == this.party.length) {
             this.current_index = 0;
         }
+        $(".character-img").removeClass("selected-character");
+        $("#character-img" + this.current_index).addClass("selected-character");
         $("#description").text(
             player.party[player.current_index].name + "\'s turn");
     }
 
 }
 
+// intance of players
 const player = new Player("Player");
 const enemy = new Player("Enemy");
 
@@ -75,33 +80,22 @@ const addEnemyToParty = (job) => {
     $("#enemy-screen").append($enemyImg);
 }
 
-/*
-// function - selects target
-const selectTarget = () => {
-    let target;
-    for (let i = 0; i < enemy.party.length; i++) {
-        $("#enemy-img" + i).on("click", () => {
-            target = i;
-            $("#enemy-img" + i).addClass("target");
-    game.log(target);
-        });
-    }
-    game.log("Select a target");
-    $("#enemy-img" + target).removeClass("target");
-    return target;
-}
-*/
-
 // document ready function
 $(() => {
     let target;
-    // add characters to game
+    // add characters and enemies to game
     addCharacterToParty("Bill", Warrior);
+    addCharacterToParty("Job", Monk);
+    addCharacterToParty("Steve", BlackMage);
+    addCharacterToParty("Jessica", WhiteMage);
+    addEnemyToParty(Goblin);
+    addEnemyToParty(Goblin);
     addEnemyToParty(Goblin);
     addEnemyToParty(Goblin);
 
     // displays first character's turn
     $("#description").text(player.party[player.current_index].name + "\'s turn");
+    $("#character-img" + player.current_index).addClass("selected-character");
 
     // eventlisteners
 
@@ -109,7 +103,20 @@ $(() => {
     for (let i = 0; i < enemy.party.length; i++) {
         $("#enemy-img" + i).on("click", () => {
             $(".enemy-img").removeClass("target");
+            $(".character-img").removeClass("target");
             $("#enemy-img" + i).addClass("target");
+            target = i;
+            game.log(i);
+        });
+    }
+
+    // eventlistener - character images
+    for (let i = 0; i < player.party.length; i++) {
+        $("#character-img" + i).on("click", () => {
+            $(".enemy-img").removeClass("target");
+            $(".character-img").removeClass("target");
+            $("#character-img" + i).addClass("target");
+            $("#character-img" + i).css("border-color", "green");
             target = i;
             game.log(i);
         });
@@ -124,7 +131,7 @@ $(() => {
         game.log(player.party[player.current_index].name + " attacked!");
         // if enemy is dead
         if (enemy.party[selectedTarget].health_points == 0) {
-            $("#enemy"+ selectedTarget).addClass("dead");
+            $("#enemy" + selectedTarget).addClass("dead");
         }
         if (!enemy.checkState()) {
             // target attacks back
@@ -133,13 +140,11 @@ $(() => {
             $("#character-hp" + player.current_index).text(
                 "HP " + player.party[player.current_index].health_points + "/" 
                 + player.party[player.current_index].max_health_points);
-            $("#enemy-health-bar" )
             game.log(enemy.party[selectedTarget].name + " attacked!");
+            // check if party is dead
             if(player.checkState()) {
                 alert("You lost...");
             }
-            console.log(player.party[player.current_index]);
-            console.log(enemy.party[selectedTarget]);
         } else {
             alert("You won!");
         }
@@ -148,23 +153,28 @@ $(() => {
 
     // eventlistener - magic button
     $("#magic-button").on("click", () => {
-        player.party[0].magic(enemy.party[0]);
-        game.log(player.party[0].name + " used magic!");
+        // selected character uses magic on target
+        player.party[player.current_index].magic(enemy.party[target]);
+        game.log(player.party[player.current_index].name + " used magic!");
+        // check if target is dead
+        if (enemy.party[target].health_points == 0) {
+            $("#enemy" + target).addClass("dead");
+        }
         if (!enemy.checkState()) {
             // enemy attacks back
             enemy.attack_one();
+            // update UI
             $("#character-hp" + player.current_index).text(
-                "HP " + player.party[0].health_points + "/"
+                "HP " + player.party[player.current_index].health_points + "/"
                 + player.party[player.current_index].max_health_points);
-            game.log(enemy.party[0].name + " attacked!");
+            game.log(enemy.party[target].name + " attacked!");
             $("#character-mp" + player.current_index).text(
-                "MP " + player.party[0].magic_points + "/"
+                "MP " + player.party[player.current_index].magic_points + "/"
                 + player.party[player.current_index].max_magic_points);
+            // check if party is dead
             if(player.checkState()) {
                 alert("You lost...");
             }
-            console.log(player.party[0]);
-            console.log(enemy.party[0]);
         } else {
             alert("You won!");
         }
