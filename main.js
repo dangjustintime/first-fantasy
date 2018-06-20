@@ -117,7 +117,6 @@ $(() => {
             $(".character-img").removeClass("target");
             $("#enemy-img" + i).addClass("target");
             target = i;
-            game.log(i);
         });
     }
 
@@ -129,7 +128,6 @@ $(() => {
             $("#character-img" + i).addClass("target");
             $("#character-img" + i).css("border-color", "green");
             target = i;
-            game.log(i);
         });
     }
 
@@ -140,6 +138,7 @@ $(() => {
         // character attacks target
         player.party[player.current_index].attack(enemy.party[selectedTarget]);
         game.log(player.party[player.current_index].name + " attacked!");
+        $("#enemy-img" + target).css("animation", "damaged 0.5s linear 3"); 
         // if enemy is dead
         if (enemy.party[selectedTarget].health_points == 0) {
             $("#enemy" + selectedTarget).addClass("dead");
