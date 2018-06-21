@@ -1,6 +1,5 @@
 // document ready function
 $(() => {
-    const pickPartyArray = [];
     // variables
     let target;
 
@@ -9,45 +8,59 @@ $(() => {
     addEnemyToParty(Snake);
     addEnemyToParty(Wolf);
     addEnemyToParty(Reaper);
-    // displays first character's turn
-    //render();
 
     // eventlistners - pick jobs
     $("#pick-warrior").on("click", () => {
-        let name = prompt("Enter Name", "Warrior");
-        addCharacterToParty(name, Warrior);
-        const $newCharacter = $("<div>").addClass("pick-job");
-        $newCharacter.append($("<img>")
-            .attr("src", "img/warrior-standing.png"));
-        $newCharacter.append($("<p>").text(name));
-        $("#player-party").append($newCharacter);
+        if (player.party.length >= 4) {
+            alert("Party can have only 4 characters.");
+        } else {
+            let name = prompt("Enter Name", "Warrior");
+            addCharacterToParty(name, Warrior);
+            const $newCharacter = $("<div>").addClass("pick-job");
+            $newCharacter.append($("<img>")
+                .attr("src", "img/warrior-standing.png"));
+            $newCharacter.append($("<p>").text(name));
+            $("#player-party").append($newCharacter);
+        }
     });
     $("#pick-monk").on("click", () => {
-        let name = prompt("Enter Name", "Monk");
-        addCharacterToParty(name, Monk);
-        const $newCharacter = $("<div>").addClass("pick-job");
-        $newCharacter.append($("<img>")
-            .attr("src", "img/monk-standing.png"));
-        $newCharacter.append($("<p>").text(name));
-        $("#player-party").append($newCharacter);
+        if (player.party.length >= 4) {
+            alert("Party can have only 4 characters.");
+        } else {
+            let name = prompt("Enter Name", "Monk");
+            addCharacterToParty(name, Monk);
+            const $newCharacter = $("<div>").addClass("pick-job");
+            $newCharacter.append($("<img>")
+                .attr("src", "img/monk-standing.png"));
+            $newCharacter.append($("<p>").text(name));
+            $("#player-party").append($newCharacter);
+        }
     });
     $("#pick-black-mage").on("click", () => {
-        let name = prompt("Enter Name", "Black Mage");
-        addCharacterToParty(name, BlackMage);
-        const $newCharacter = $("<div>").addClass("pick-job");
-        $newCharacter.append($("<img>")
-            .attr("src", "img/black-mage-standing.png"));
-        $newCharacter.append($("<p>").text(name));
-        $("#player-party").append($newCharacter);
+        if (player.party.length >= 4) {
+            alert("Party can have only 4 characters.");
+        } else {
+            let name = prompt("Enter Name", "Black Mage");
+            addCharacterToParty(name, BlackMage);
+            const $newCharacter = $("<div>").addClass("pick-job");
+            $newCharacter.append($("<img>")
+                .attr("src", "img/black-mage-standing.png"));
+            $newCharacter.append($("<p>").text(name));
+            $("#player-party").append($newCharacter);
+        } 
     });
     $("#pick-white-mage").on("click", () => {
-        let name = prompt("Enter Name", "White Mage");
-        addCharacterToParty(name, WhiteMage);
-        const $newCharacter = $("<div>").addClass("pick-job");
-        $newCharacter.append($("<img>")
-            .attr("src", "img/white-mage-standing.png"));
-        $newCharacter.append($("<p>").text(name));
-        $("#player-party").append($newCharacter);
+        if (player.party.length >= 4) {
+            alert("Party can have only 4 characters.");
+        } else {
+            let name = prompt("Enter Name", "White Mage");
+            addCharacterToParty(name, WhiteMage);
+            const $newCharacter = $("<div>").addClass("pick-job");
+            $newCharacter.append($("<img>")
+                .attr("src", "img/white-mage-standing.png"));
+            $newCharacter.append($("<p>").text(name));
+            $("#player-party").append($newCharacter);
+        }
     });
 
     // eventlistener - start over picking party
@@ -60,27 +73,34 @@ $(() => {
 
     // eventlistener - finished picking party, render game
     $("#done-button").on("click", () => {
-        render();
-        $("#pop-up-container").remove();
+        if (player.party.length == 0) {
+            alert("Party must have at least one character.");
+        } else {
+            render();
+            // eventlistener - character images
+            for (let i = 0; i < player.party.length; i++) {
+                $("#character-img" + i).on("click", () => {
+                    // remove target class from all elements
+                    $(".enemy-img").removeClass("target");
+                    $(".character-img").removeClass("target");
+                    // add target to selected element
+                    $("#character-img" + i).addClass("target");
+                    $("#character-img" + i).css("border-color", "green");
+                    target = i;
+                });
+            }
+            $("#pop-up-container").remove();
+        }
     });
 
     // eventlisteners - enemy images
     for (let i = 0; i < enemy.party.length; i++) {
         $("#enemy-img" + i).on("click", () => {
+            // remove target class from all elements
             $(".enemy-img").removeClass("target");
             $(".character-img").removeClass("target");
+            // add target to selected element
             $("#enemy-img" + i).addClass("target");
-            target = i;
-        });
-    }
-
-    // eventlistener - character images
-    for (let i = 0; i < player.party.length; i++) {
-        $("#character-img" + i).on("click", () => {
-            $(".enemy-img").removeClass("target");
-            $(".character-img").removeClass("target");
-            $("#character-img" + i).addClass("target");
-            $("#character-img" + i).css("border-color", "green");
             target = i;
         });
     }
