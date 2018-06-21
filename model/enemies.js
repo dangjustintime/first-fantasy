@@ -29,3 +29,13 @@ class Snake extends Character {
         this.src = "img/snake.png";
     }
 }
+// Reaper
+class Reaper extends Character {
+    constructor() {
+        super("Reaper");
+        this.job = "reaper";
+        this.health_points = 5;
+        this.strength = 8;
+        this.src = "img/reaper.png";
+    }
+}

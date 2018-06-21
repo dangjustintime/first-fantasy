@@ -149,3 +149,7 @@ body {
     0% { background: red; }
     100% { background: none; }
 }
+@keyframes healed {
+    0% { background: green; }
+    100% { background: none; }
+}

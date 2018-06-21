@@ -91,6 +91,27 @@ const addEnemyToParty = (job) => {
     $("#enemy-screen").append($enemyImg);
 }
 
+// function - updates values on game screen
+const render = () => {
+    // update characters' HP and MP
+    for (let i = 0; i < player.party.length; i++) {
+        $("#character-hp" + i).text("HP " + player.party[i].health_points + "/"
+            + player.party[i].max_health_points);
+        $("#character-mp" + i).text("MP " + player.party[i].magic_points + "/"
+            + player.party[i].max_magic_points);
+        // change sprite according to HP
+        if (player.party[i].health_points == 0) {
+            $("#character-img" + i).attr("src", player.party[i].src_dead);
+        } else if (player.party[i].health_points < (player.party[i].max_health_points / 2)) {
+            $("#character-img" + i).attr("src", player.party[i].src_damaged);
+        } else {
+            $("#character-img" + i).attr("src", player.party[i].src_standing);
+        }
+    }
+
+}
+
+
 // document ready function
 $(() => {
     let target;
@@ -102,7 +123,7 @@ $(() => {
     addEnemyToParty(Goblin);
     addEnemyToParty(Snake);
     addEnemyToParty(Wolf);
-    addEnemyToParty(Wolf);
+    addEnemyToParty(Reaper);
 
     // displays first character's turn
     $("#description").text(player.party[player.current_index].name + "\'s turn");
@@ -138,7 +159,7 @@ $(() => {
         // character attacks target
         player.party[player.current_index].attack(enemy.party[selectedTarget]);
         game.log(player.party[player.current_index].name + " attacked!");
-        $("#enemy-img" + target).css("animation", "damaged 0.5s linear 3"); 
+        $("#enemy-img" + target).css("animation", "damaged 0.5s linear 1"); 
         // if enemy is dead
         if (enemy.party[selectedTarget].health_points == 0) {
             $("#enemy" + selectedTarget).addClass("dead");
@@ -146,6 +167,7 @@ $(() => {
         if (!enemy.checkState()) {
             // target attacks back
             enemy.attack_one();
+            $("#character-img" + player.current_index).css("animation", "damaged 0.5s linear 1"); 
             // update screen
             if (player.party[player.current_index].health_points <= 
                 (player.party[player.current_index].max_health_points / 2)) {
@@ -179,11 +201,12 @@ $(() => {
         if (player.party[player.current_index].job == "white mage") {
             // heal target
             player.party[player.current_index].magic(player.party[target]);
+            $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
             // update UI
             // if character has more than half HP, change to standing sprite
             if (player.party[target].health_points >=
-                player.party[target].max_health_points) {
-                $("#character-img" + player.current_index)
+                (player.party[target].max_health_points / 2)) {
+                $("#character-img" + target)
                     .attr("src",
                         player.party[target].src_standing);
             }
@@ -193,6 +216,7 @@ $(() => {
         } else {
             // selected character uses magic on target
             player.party[player.current_index].magic(enemy.party[target]);
+            $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
             // check if target is dead
             if (enemy.party[target].health_points == 0) {
                 $("#enemy" + target).addClass("dead");
