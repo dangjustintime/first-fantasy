@@ -1,7 +1,7 @@
 // document ready function
 $(() => {
-    // variables
-    let target;
+    // target is set to no index
+    let target = -1;
 
     // add characters and enemies to game
     addEnemyToParty(Goblin);
@@ -107,54 +107,67 @@ $(() => {
 
     // eventlistener - attack button
     $("#attack-button").on("click", () => {
-        // select target
-        // character attacks target
-        player.party[player.current_index].attack(enemy.party[target]);
-        game.log(player.party[player.current_index].name + " attacked!");
-        $("#enemy-img" + target).css("animation", "damaged 0.5s linear 1"); 
-        if (!enemy.checkState()) {
-            // target attacks back
-            enemy.attack_one();
-            $("#character-img" + player.current_index).css("animation",
-                "damaged 0.5s linear 1"); 
-            game.log(enemy.party[target].name + " attacked!");
-            // check if party is dead
-            if(player.checkState()) {
-                alert("You lost...");
-            }
+        // if target is not selected
+        if (target == -1) {
+            game.log("Must Select a target");
         } else {
-            alert("You won!");
-        }
-        player.nextCharacter();
-        // update screen
-        render();
-    });
-
-    // eventlistener - magic button
-    $("#magic-button").on("click", () => {
-        game.log(player.party[player.current_index].name + " used magic!");
-        // if character is a white mage
-        if (player.party[player.current_index].job == "white mage") {
-            // heal target
-            player.party[player.current_index].magic(player.party[target]);
-            $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
-        } else {
-            // selected character uses magic on target
-            player.party[player.current_index].magic(enemy.party[target]);
-            $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
+            // character attacks target
+            player.party[player.current_index].attack(enemy.party[target]);
+            game.log(player.party[player.current_index].name + " attacked!");
+            $("#enemy-img" + target).css("animation", "damaged 0.5s linear 1"); 
             if (!enemy.checkState()) {
-                // enemy attacks back
+                // target attacks back
                 enemy.attack_one();
+                $("#character-img" + player.current_index).css("animation",
+                    "damaged 0.5s linear 1"); 
+                game.log(enemy.party[target].name + " attacked!");
+                // check if party is dead
                 if(player.checkState()) {
                     alert("You lost...");
                 }
             } else {
                 alert("You won!");
             }
+            player.nextCharacter();
+            // reset target to -1
+            target = -1;
+            // update screen
+            render();
         }
-        player.nextCharacter();
-        // update UI
-        render();
+    });
+
+    // eventlistener - magic button
+    $("#magic-button").on("click", () => {
+        // if target is not selected
+        if (target == -1) {
+            game.log("Must Select a target");
+        } else {
+            game.log(player.party[player.current_index].name + " used magic!");
+            // if character is a white mage
+            if (player.party[player.current_index].job == "white mage") {
+                // heal target
+                player.party[player.current_index].magic(player.party[target]);
+                $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
+            } else {
+                // selected character uses magic on target
+                player.party[player.current_index].magic(enemy.party[target]);
+                $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
+                if (!enemy.checkState()) {
+                    // enemy attacks back
+                    enemy.attack_one();
+                    if(player.checkState()) {
+                        alert("You lost...");
+                    }
+                } else {
+                    alert("You won!");
+                }
+            }
+            player.nextCharacter();
+            // reset target to -1
+            target = -1;
+            // update UI
+            render();
+        }
     });
 
     // eventlistener - run button
@@ -162,6 +175,8 @@ $(() => {
         game.log(player.name + " ran away!");
         player.nextCharacter();
         alert("You lost...");
+        // reset target to -1
+        target = -1;
         // update UI
         render();
     });

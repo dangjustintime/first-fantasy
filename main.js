@@ -56,7 +56,7 @@ const addCharacterToParty = (name, job) => {
     player.party.push(newCharacter);
     $characterInfo = $("<div>").addClass("character-info")
         .attr("id", "character" + (player.party.length - 1));
-    $characterInfo.append($("<p>")
+    $characterInfo.append($("<h1>")
         .attr("id", "character-name" + (player.party.length - 1))
         .text(name));
     $characterInfo.append($("<p>")
