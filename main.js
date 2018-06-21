@@ -17,20 +17,14 @@ class Player {
     checkState() {
         return this.party.every(x => x.health_points <= 0); 
     }
-    // method - navigates through party array
+    // method - navigates through party array to next character
     nextCharacter() {
-        this.current_index++;
-        if (this.current_index >= this.party.length) {
-            this.current_index = 0;
-        }
-        // skip character if dead
-        if (this.party[this.current_index].health_points == 0) {
+        do {
             this.current_index++;
-        }
-        $(".character-img").removeClass("selected-character");
-        $("#character-img" + this.current_index).addClass("selected-character");
-        $("#description").text(
-            player.party[player.current_index].name + "\'s turn");
+            if (this.current_index == this.party.length) {
+                this.current_index = 0;
+            }
+        } while (this.party[this.current_index].health_points == 0);
     }
 
 }
@@ -102,13 +96,25 @@ const render = () => {
         // change sprite according to HP
         if (player.party[i].health_points == 0) {
             $("#character-img" + i).attr("src", player.party[i].src_dead);
-        } else if (player.party[i].health_points < (player.party[i].max_health_points / 2)) {
+        } else if (player.party[i].health_points <
+            (player.party[i].max_health_points / 2)) {
             $("#character-img" + i).attr("src", player.party[i].src_damaged);
         } else {
             $("#character-img" + i).attr("src", player.party[i].src_standing);
         }
     }
+    // update enemy sprites
+    for (let i = 0; i < enemy.party.length; i++) {
+        if (enemy.party[i].health_points == 0) {
+            $("#enemy-img" + i).addClass("dead");
+        }
+    }
 
+    // update selected character
+    $(".character-img").removeClass("selected-character");
+    $("#character-img" + player.current_index).addClass("selected-character");
+    $("#description").text(
+        player.party[player.current_index].name + "\'s turn");
 }
 
 
@@ -126,9 +132,7 @@ $(() => {
     addEnemyToParty(Reaper);
 
     // displays first character's turn
-    $("#description").text(player.party[player.current_index].name + "\'s turn");
-    $("#character-img" + player.current_index).addClass("selected-character");
-
+    render();
     // eventlisteners
 
     // eventlisteners - enemy images
@@ -155,35 +159,16 @@ $(() => {
     // eventlistener - attack button
     $("#attack-button").on("click", () => {
         // select target
-        let selectedTarget = target;
         // character attacks target
-        player.party[player.current_index].attack(enemy.party[selectedTarget]);
+        player.party[player.current_index].attack(enemy.party[target]);
         game.log(player.party[player.current_index].name + " attacked!");
         $("#enemy-img" + target).css("animation", "damaged 0.5s linear 1"); 
-        // if enemy is dead
-        if (enemy.party[selectedTarget].health_points == 0) {
-            $("#enemy" + selectedTarget).addClass("dead");
-        }
         if (!enemy.checkState()) {
             // target attacks back
             enemy.attack_one();
-            $("#character-img" + player.current_index).css("animation", "damaged 0.5s linear 1"); 
-            // update screen
-            if (player.party[player.current_index].health_points <= 
-                (player.party[player.current_index].max_health_points / 2)) {
-                $("#character-img" + player.current_index)
-                    .attr("src",
-                        player.party[player.current_index].src_damaged);
-            }
-            if (player.party[player.current_index].health_points == 0) {
-                $("#character-img" + player.current_index)
-                    .attr("src",
-                        player.party[player.current_index].src_dead);
-            }
-            $("#character-hp" + player.current_index).text(
-                "HP " + player.party[player.current_index].health_points + "/" 
-                + player.party[player.current_index].max_health_points);
-            game.log(enemy.party[selectedTarget].name + " attacked!");
+            $("#character-img" + player.current_index).css("animation",
+                "damaged 0.5s linear 1"); 
+            game.log(enemy.party[target].name + " attacked!");
             // check if party is dead
             if(player.checkState()) {
                 alert("You lost...");
@@ -192,6 +177,8 @@ $(() => {
             alert("You won!");
         }
         player.nextCharacter();
+        // update screen
+        render();
     });
 
     // eventlistener - magic button
@@ -202,37 +189,13 @@ $(() => {
             // heal target
             player.party[player.current_index].magic(player.party[target]);
             $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
-            // update UI
-            // if character has more than half HP, change to standing sprite
-            if (player.party[target].health_points >=
-                (player.party[target].max_health_points / 2)) {
-                $("#character-img" + target)
-                    .attr("src",
-                        player.party[target].src_standing);
-            }
-            $("#character-hp" + target).text(
-                "HP " + player.party[target].health_points + "/"
-                + player.party[target].max_health_points);
         } else {
             // selected character uses magic on target
             player.party[player.current_index].magic(enemy.party[target]);
             $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
-            // check if target is dead
-            if (enemy.party[target].health_points == 0) {
-                $("#enemy" + target).addClass("dead");
-            }
             if (!enemy.checkState()) {
                 // enemy attacks back
                 enemy.attack_one();
-                // update UI
-                $("#character-hp" + player.current_index).text(
-                    "HP " + player.party[player.current_index].health_points + "/"
-                    + player.party[player.current_index].max_health_points);
-                game.log(enemy.party[target].name + " attacked!");
-                $("#character-mp" + player.current_index).text(
-                    "MP " + player.party[player.current_index].magic_points + "/"
-                    + player.party[player.current_index].max_magic_points);
-                // check if party is dead
                 if(player.checkState()) {
                     alert("You lost...");
                 }
@@ -241,12 +204,17 @@ $(() => {
             }
         }
         player.nextCharacter();
+        // update UI
+        render();
     });
 
     // eventlistener - run button
     $("#run-button").on("click", () => {
         game.log(player.name + " ran away!");
+        player.nextCharacter();
         alert("You lost...");
+        // update UI
+        render();
     });
 
 });
