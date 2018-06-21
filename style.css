@@ -23,13 +23,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 1);
+}
+#pop-up-container p {
+    margin: 5px;
+    font-size: 16px;
+    display: inline-block;
+}
+#pop-up-container p:hover {
+    font-weight: bold;
 }
 
 #player-party {
     border: 3px solid white;
     width: 500px;
-    height: 125px;
+    height: 175px;
 }
 
 #canvas {
@@ -124,6 +132,25 @@ body {
 .selected-character {
     transform: translateX(100px) scaleX(-1);
 }
+
+.pick-job {
+    display: inline-block;
+    width: 110px;
+    height: 150px;
+    padding: 5px
+}
+.pick-job img {
+    width: 95%;
+    height: auto;
+}
+.pick-job p {
+    text-align: center;
+    font-size: 16px;
+}
+.pick-job:hover {
+    border: 3px solid white;
+}
+
 
 @keyframes moving {
     0% { transform: scaleX(-1) translateY(-5px); }
