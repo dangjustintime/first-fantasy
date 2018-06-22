@@ -76,7 +76,7 @@ body {
 #game-log {
     background: rgba(0, 0, 0, 0.5);
     display: flex;
-    height: 33%;
+    height: auto;
 }
 
 #description {
@@ -101,6 +101,7 @@ body {
 
 #player-screen {
     display: inline-block;
+    padding-top: 60px;
     width: 33%;
     height: 100%;
 }
