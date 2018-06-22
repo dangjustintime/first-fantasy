@@ -6,6 +6,9 @@ $(() => {
     // add characters and enemies to game
     generateEnemies();
 
+    // set random background
+    generateBackground();
+
     // eventlistners - pick jobs
     $("#pick-warrior").on("click", () => {
         if (player.party.length >= 4) {

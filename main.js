@@ -117,7 +117,20 @@ const generateEnemies = () => {
                 break;
         }
     }
-};
+}
+
+// function - generate random background
+const generateBackground = () => {
+    const backgrounds = [
+        "img/desert-background.png",
+        "img/grass-background.png",
+        "img/ship-background.png",
+        "img/woods-background.png",
+    ];
+    let index = Math.floor(Math.random() * backgrounds.length);
+    $("#canvas").css("background-image", "url(" + backgrounds[index]);
+}
+
 
 // function - updates values on game screen
 const render = () => {
