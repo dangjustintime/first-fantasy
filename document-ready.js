@@ -4,10 +4,7 @@ $(() => {
     let target = -1;
 
     // add characters and enemies to game
-    addEnemyToParty(Goblin);
-    addEnemyToParty(Snake);
-    addEnemyToParty(Wolf);
-    addEnemyToParty(Reaper);
+    generateEnemies();
 
     // eventlistners - pick jobs
     $("#pick-warrior").on("click", () => {

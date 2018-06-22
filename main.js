@@ -85,8 +85,38 @@ const addEnemyToParty = (job) => {
     $("#enemy-screen").append($enemyImg);
 }
 
+// function - generates random enemies
 const generateEnemies = () => {
-
+    let numEnemies = Math.floor(Math.random() * 4);
+    for (let i = 0; i < numEnemies; i++) {
+        let randomEnemy = Math.floor(Math.random() * 8);
+        switch (randomEnemy) {
+            case 0:
+                addEnemyToParty(Goblin);
+                break;
+            case 1:
+                addEnemyToParty(Wolf);
+                break;
+            case 2:
+                addEnemyToParty(Snake);
+                break;
+            case 3:
+                addEnemyToParty(Reaper);
+                break;
+            case 4:
+                addEnemyToParty(Golem);
+                break;
+            case 5:
+                addEnemyToParty(Vampire);
+                break;
+            case 6:
+                addEnemyToParty(Skeleton);
+                break;
+            case 7:
+                addEnemyToParty(Spider);
+                break;
+        }
+    }
 };
 
 // function - updates values on game screen
