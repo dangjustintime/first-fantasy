@@ -132,7 +132,6 @@ $(() => {
             player.nextCharacter();
             // reset target to -1
             target = -1;
-            setTimeout(()=>{}, 3000)
             $("#character-img" + player.current_index).removeClass("hit");
             $("#enemy-img" + target).removeClass("hit"); 
             // update screen
@@ -153,13 +152,11 @@ $(() => {
                 player.party[player.current_index].magic(player.party[target]);
                 $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
             } else {
-                // selected character uses magic on target
+                // if target is already dead
                 if (enemy.party[target].health_points == 0) {
                     game.log("Target is already dead.");
-                    return;
                 } else {
                     player.party[player.current_index].magic(enemy.party[target]);
-                    $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
                     if (!enemy.checkState()) {
                         // enemy attacks back
                         enemy.attack_one();
@@ -169,13 +166,12 @@ $(() => {
                     } else {
                         alert("You won!");
                     }
+                    player.nextCharacter();
+                    render();
                 }
             }
-            player.nextCharacter();
             // reset target to -1
             target = -1;
-            // update UI
-            render();
         }
     });
 
