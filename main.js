@@ -87,7 +87,7 @@ const addEnemyToParty = (job) => {
 
 // function - generates random enemies
 const generateEnemies = () => {
-    let numEnemies = Math.floor(Math.random() * 4);
+    let numEnemies = Math.floor(Math.random() * 4) + 1;
     for (let i = 0; i < numEnemies; i++) {
         let randomEnemy = Math.floor(Math.random() * 8);
         switch (randomEnemy) {
