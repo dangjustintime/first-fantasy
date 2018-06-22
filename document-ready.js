@@ -156,6 +156,7 @@ $(() => {
                 // selected character uses magic on target
                 if (enemy.party[target].health_points == 0) {
                     game.log("Target is already dead.");
+                    return;
                 } else {
                     player.party[player.current_index].magic(enemy.party[target]);
                     $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
