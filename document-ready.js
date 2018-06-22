@@ -110,7 +110,7 @@ $(() => {
         // if target is not selected
         if (target == -1) {
             game.log("Must Select a target");
-        } else if (enemy.party[i].health_points == 0) {
+        } else if (enemy.party[target].health_points == 0) {
             game.log("Target is already dead.");
         } else {
             // character attacks target
@@ -145,8 +145,6 @@ $(() => {
         // if target is not selected
         if (target == -1) {
             game.log("Must Select a target");
-        } else if (enemy.party[i].health_points == 0) {
-            game.log("Target is already dead.");
         } else {
             game.log(player.party[player.current_index].name + " used magic!");
             // if character is a white mage
@@ -156,16 +154,20 @@ $(() => {
                 $("#chacter-img" + target).css("animation", "healed 1s linear 1"); 
             } else {
                 // selected character uses magic on target
-                player.party[player.current_index].magic(enemy.party[target]);
-                $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
-                if (!enemy.checkState()) {
-                    // enemy attacks back
-                    enemy.attack_one();
-                    if(player.checkState()) {
-                        alert("You lost...");
-                    }
+                if (enemy.party[target].health_points == 0) {
+                    game.log("Target is already dead.");
                 } else {
-                    alert("You won!");
+                    player.party[player.current_index].magic(enemy.party[target]);
+                    $("#enemy-img" + target).css("animation", "damage 1s linear 1"); 
+                    if (!enemy.checkState()) {
+                        // enemy attacks back
+                        enemy.attack_one();
+                        if(player.checkState()) {
+                            alert("You lost...");
+                        }
+                    } else {
+                        alert("You won!");
+                    }
                 }
             }
             player.nextCharacter();
