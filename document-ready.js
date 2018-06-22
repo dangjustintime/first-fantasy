@@ -110,6 +110,8 @@ $(() => {
         // if target is not selected
         if (target == -1) {
             game.log("Must Select a target");
+        } else if (enemy.party[i].health_points == 0) {
+            game.log("Target is already dead.");
         } else {
             // character attacks target
             player.party[player.current_index].attack(enemy.party[target]);
@@ -143,6 +145,8 @@ $(() => {
         // if target is not selected
         if (target == -1) {
             game.log("Must Select a target");
+        } else if (enemy.party[i].health_points == 0) {
+            game.log("Target is already dead.");
         } else {
             game.log(player.party[player.current_index].name + " used magic!");
             // if character is a white mage
