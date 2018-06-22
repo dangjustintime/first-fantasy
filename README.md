@@ -19,3 +19,17 @@ against random enemies in random places!
 #### White Mage
 ![alt text](img/white-mage-standing.png)
 * heals members of party
+
+### Technologies
+* HTML
+* CSS
+* Javascript
+* jQuery
+
+### Unsolve Problems
+* need to implement multiple rounds
+* need to add damage animations
+* need to add win or loss screen
+
+### Play Me
+https://dangjustintime.github.io/first-fantasy/
