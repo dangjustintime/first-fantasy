@@ -5,17 +5,17 @@ A classic turn-based Role Playing Game where you create a party and battle
 against random enemies in random places!
 
 ### Classes
-![alt text](img/warrior-standing.png)
 #### Warrior
+![alt text](img/warrior-standing.png)
 * does the most damage
 * has above average amount of HP
-![alt text](img/monk-standing.png)
 #### Monk
+![alt text](img/monk-standing.png)
 * has the most HP
 * does above average amount of damage
-![alt text](img/black-mage-standing.png)
 #### Black Mage
+![alt text](img/black-mage-standing.png)
 * does the most magic damage
-![alt text](img/white-mage-standing.png)
 #### White Mage
+![alt text](img/white-mage-standing.png)
 * heals members of party
