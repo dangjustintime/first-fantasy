@@ -178,6 +178,8 @@ const render = () => {
     }
     // update selected character
     $(".character-img").removeClass("selected-character");
+    $("#character-img" + player.current_index).removeClass("alive");
+    $("#character-img" + player.current_index).removeClass("damaged");
     $("#character-img" + player.current_index).addClass("selected-character");
     $("#description").text(
         player.party[player.current_index].name + "\'s turn");

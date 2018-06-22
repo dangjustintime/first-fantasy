@@ -101,7 +101,7 @@ body {
 
 #player-screen {
     display: inline-block;
-    padding-top: 60px;
+    padding-top: 65px;
     width: 33%;
     height: 100%;
 }
@@ -155,7 +155,7 @@ body {
 }
 
 .selected-character {
-    transform: translateX(100px) scaleX(-1);
+    transform: translateX(150px) scaleX(-1);
 }
 
 .pick-job {
