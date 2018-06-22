@@ -114,12 +114,11 @@ $(() => {
             // character attacks target
             player.party[player.current_index].attack(enemy.party[target]);
             game.log(player.party[player.current_index].name + " attacked!");
-            $("#enemy-img" + target).css("animation", "damaged 0.5s linear 1"); 
+            $("#enemy-img" + target).addClass("hit"); 
             if (!enemy.checkState()) {
                 // target attacks back
                 enemy.attack_one();
-                $("#character-img" + player.current_index).css("animation",
-                    "damaged 0.5s linear 1"); 
+                $("#character-img" + player.current_index).addClass("hit");
                 game.log(enemy.party[target].name + " attacked!");
                 // check if party is dead
                 if(player.checkState()) {
@@ -131,6 +130,9 @@ $(() => {
             player.nextCharacter();
             // reset target to -1
             target = -1;
+            setTimeout(()=>{}, 3000)
+            $("#character-img" + player.current_index).removeClass("hit");
+            $("#enemy-img" + target).removeClass("hit"); 
             // update screen
             render();
         }
