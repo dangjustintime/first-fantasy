@@ -76,6 +76,8 @@ const addCharacterToParty = (name, job) => {
 // function - adds enemy div to DOM
 const addEnemyToParty = (job) => {
     const newEnemy = new job();
+    // set health points equal to max health points
+    newEnemy.health_points = newEnemy.max_health_points;
     enemy.party.push(newEnemy);
     $enemyImg = $("<div>").addClass("enemy-info");
     $enemyImg.attr("id", "enemy" + (enemy.party.length - 1));

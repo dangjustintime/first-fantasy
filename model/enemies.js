@@ -4,7 +4,7 @@ class Goblin extends Character {
     constructor() {
         super("Goblin");
         this.job = "goblin";
-        this.health_points = 6;
+        this.max_health_points = 6;
         this.strength = 5;
         this.src = "img/goblin.png";
     }
@@ -14,7 +14,7 @@ class Wolf extends Character {
     constructor() {
         super("Wolf");
         this.job = "wolf";
-        this.health_points = 7;
+        this.max_health_points = 7;
         this.strength = 7;
         this.src = "img/wolf.png";
     }
@@ -24,7 +24,7 @@ class Snake extends Character {
     constructor() {
         super("Snake");
         this.job = "snake";
-        this.health_points = 5;
+        this.max_health_points = 5;
         this.strength = 7;
         this.src = "img/snake.png";
     }
@@ -34,7 +34,7 @@ class Reaper extends Character {
     constructor() {
         super("Reaper");
         this.job = "reaper";
-        this.health_points = 5;
+        this.max_health_points = 5;
         this.strength = 8;
         this.src = "img/reaper.png";
     }
@@ -44,7 +44,7 @@ class Golem extends Character {
     constructor() {
         super("Golem");
         this.job = "golem";
-        this.health_points = 11;
+        this.max_health_points = 11;
         this.strength = 4;
         this.src = "img/golem.png";
     }
@@ -54,7 +54,7 @@ class Vampire extends Character {
     constructor() {
         super("Vampire");
         this.job = "vampire";
-        this.health_points = 8;
+        this.max_health_points = 8;
         this.strength = 3;
         this.src = "img/vampire.png";
     }
@@ -72,7 +72,7 @@ class Skeleton extends Character {
     constructor() {
         super("Skeleton");
         this.job = "skeleton";
-        this.health_points = 6;
+        this.max_health_points = 6;
         this.strength = 6;
         this.src = "img/skeleton.png";
     }
@@ -82,7 +82,7 @@ class Spider extends Character {
     constructor() {
         super("Spider");
         this.job = "spider";
-        this.health_points = 9;
+        this.max_health_points = 9;
         this.strength = 5;
         this.src = "img/spider.png";
     }
